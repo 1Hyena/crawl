@@ -1758,7 +1758,19 @@ bool is_giant_club_type(int wpn_type)
  */
 bool is_ranged_weapon_type(int wpn_type)
 {
-    return Weapon_prop[Weapon_index[wpn_type]].ammo != MI_NONE;
+    return is_wieldable_weapon_type(wpn_type)
+        && Weapon_prop[Weapon_index[wpn_type]].ammo != MI_NONE;
+}
+
+/**
+ * Is the provided type a kind of a wieldable weapon?
+ *
+ * @param wpn_type  The weapon_type under consideration.
+ * @return          Whether it's wieldable.
+ */
+bool is_wieldable_weapon_type(int wpn_type)
+{
+    return wpn_type < NUM_WEAPONS;
 }
 
 /**
@@ -2161,6 +2173,8 @@ int ammo_type_damage(int missile_type)
 //
 reach_type weapon_reach(const item_def &item)
 {
+    if (is_unrandom_artefact(item, UNRAND_RIFT))
+        return REACH_THREE;
     if (item_attack_skill(item) == SK_POLEARMS)
         return REACH_TWO;
     return REACH_NONE;
