@@ -11,7 +11,9 @@ struct job_def
     const char* abbrev; ///< Two-letter abbreviation
     const char* name; ///< Long name
     int s, i, d; ///< Starting Str, Dex, and Int
-    vector<species_type> recommended_species; ///< Which species are good at it
+    /// Which species are good at it
+    /// No recommended species = job is disabled
+    vector<species_type> recommended_species;
     /// Guaranteed starting equipment. Uses vault spec syntax, with the plus:,
     /// charges:, q:, and ego: tags supported.
     vector<string> equipment;
@@ -91,7 +93,7 @@ static const map<job_type, job_def> job_data =
     "CK", "Chaos Knight",
     4, 4, 4,
     { SP_HILL_ORC, SP_TROLL, SP_CENTAUR, SP_MERFOLK, SP_MINOTAUR,
-      SP_BASE_DRACONIAN, SP_DEMONSPAWN, },
+      SP_BASE_DRACONIAN, SP_DEMONSPAWN, SP_GNOLL, },
     { "leather armour plus:2" },
     WCHOICE_PLAIN,
     { { SK_FIGHTING, 3 }, { SK_ARMOUR, 1 }, { SK_DODGING, 1 },
